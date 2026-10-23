@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THANK YOU FOR WATCHING</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="logo">
+            <a href="portfolio.html">SHUN</a>
+        </h1>
+
+        <nav class="nav">
+            <a href="photo.html">PHOTO</a>
+            <a href="about.html">ABOUT</a>
+            <a href="contact.html" class="active">CONTACT</a>
+        </nav>
+    </header>
+        <h2>CONTACT</h2>
+        <p>お返事までに数日お時間をいただく場合がございます。</p>
+    <form action="https://formspree.io/f/mqppkojk" method="POST">
+        <label for="name">NAME:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="email">E-MAIL:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+
+        <label for="subject">SUBJECT:</label>
+        <p>お問合せの種類</p>
+        <input type="text" id="subject" name="subject" required>
+        <br>
+
+        <label for="message">MESSAGE:</label>
+        <P>お問合せの詳細</P>
+        <textarea id="message" name="message" required></textarea>
+        <br>
+        <input type="submit" value="SEND"> 
+    </form>

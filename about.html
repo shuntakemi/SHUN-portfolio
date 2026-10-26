@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja" class="is-loading custom-cursor-enabled">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THANK YOU FOR WATCHING</title>
+<style>
+    html.is-loading,
+    html.is-loading * {
+        cursor: none !important;
+    }
+</style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="custom-cursor"></div>
+
+
+<script>
+(() => {
+    function startCursor() {
+        const cursor = document.querySelector(".custom-cursor");
+        const loadingScreen = document.querySelector(".loading-screen");
+
+        let loading = Boolean(loadingScreen);
+        let hasMousePosition = false;
+
+        let mouseX = 0;
+        let mouseY = 0;
+
+        // 初期状態から通常カーソルを隠す
+        document.documentElement.classList.add("custom-cursor-enabled");
+
+        if (loading) {
+            document.documentElement.classList.add("is-loading");
+            document.body.classList.add("is-loading");
+        }
+
+        const finishLoading = () => {
+            if (!loading) return;
+
+            loading = false;
+
+            document.documentElement.classList.remove("is-loading");
+            document.body.classList.remove("is-loading");
+
+            // ローディング中に取得した位置があれば即座に表示
+            if (cursor && hasMousePosition) {
+                cursor.style.left = mouseX + "px";
+                cursor.style.top = mouseY + "px";
+                cursor.style.display = "block";
+            }
+        };
+
+        if (loadingScreen) {
+            loadingScreen.addEventListener("animationend", (event) => {
+                if (
+                    event.target === loadingScreen &&
+                    event.animationName === "loading-screen-hide"
+                ) {
+                    finishLoading();
+                }
+            });
+
+            // アニメーションが発火しない場合の保険
+            window.setTimeout(finishLoading, 2500);
+        }
+
+        document.addEventListener("mousemove", (event) => {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+            hasMousePosition = true;
+
+            if (!cursor) return;
+
+            cursor.style.left = mouseX + "px";
+            cursor.style.top = mouseY + "px";
+
+            if (!loading) {
+                cursor.style.display = "block";
+            }
+        });
+
+        document.querySelectorAll(
+            "a, button, input, textarea, select"
+        ).forEach((target) => {
+            target.addEventListener("mouseenter", () => {
+                if (!cursor || loading) return;
+                cursor.classList.add("is-hover");
+            });
+
+            target.addEventListener("mouseleave", () => {
+                if (!cursor) return;
+                cursor.classList.remove("is-hover");
+            });
+        });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", startCursor, {
+            once: true
+        });
+    } else {
+        startCursor();
+    }
+})();
+</script>
+
+     <div class="loading-screen">
+        <p class="loading-logo">SHUN</p>
+    </div> 
+    <header class="header">
+        <h2 class="logo">
+            <a href="portfolio.html">SHUN</a>
+        </h2>
+        <nav class="nav">
+            <a href="photo.html">PHOTO</a>
+            <a href="about.html" class="active">ABOUT</a>
+            <a href="contact.html">CONTACT</a>
+        </nav>
+    </header>
+    <h1 class="page-title">ABOUT</h1>
+    <main>
+     <h2>武見 瞬</h2>
+    <p>
+        Shun Takemi
+        <br>
+        2004年生まれ。東京都世田谷区出身。街中華が大好きです。
+        <br>
+        使用カメラ：SONY α1 ILCE-1,α9 II ILCE-9M2,FUJIFILM GFX100,Leica M10-R
+    </p>
+    </main>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja" class=""is-loading>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THANK YOU FOR WATCHING</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="custom-cursor"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const cursor = document.querySelector(".custom-cursor");
+    const loadingScreen = document.querySelector(".loading-screen");
+
+    let loading = Boolean(loadingScreen);
+
+    if (loading) {
+        document.documentElement.classList.add("is-loading");
+        document.body.classList.add("is-loading");
+    }
+
+    if (cursor) {
+        cursor.style.display = "none";
+    }
+
+    const finishLoading = () => {
+        if (!loading) return;
+
+        loading = false;
+
+        document.documentElement.classList.remove("is-loading");
+        document.body.classList.remove("is-loading");
+    };
+
+    if (loadingScreen) {
+        loadingScreen.addEventListener("animationend", (event) => {
+            if (
+                event.target === loadingScreen &&
+                event.animationName === "loading-screen-hide"
+            ) {
+                finishLoading();
+            }
+        });
+
+        window.setTimeout(finishLoading, 2500);
+    }
+
+    document.addEventListener("mousemove", (event) => {
+        if (!cursor) return;
+
+        cursor.style.left = `${event.clientX}px`;
+        cursor.style.top = `${event.clientY}px`;
+        cursor.style.display = loading ? "none" : "block";
+    });
+
+    document.querySelectorAll(
+        "a, button, input, textarea, select"
+    ).forEach((target) => {
+        target.addEventListener("mouseenter", () => {
+            if (!cursor || loading) return;
+            cursor.classList.add("is-hover");
+        });
+
+        target.addEventListener("mouseleave", () => {
+            if (!cursor) return;
+            cursor.classList.remove("is-hover");
+        });
+    });
+});
+</script>
+
+     <div class="loading-screen">
+        <p class="loading-logo">SHUN</p>
+    </div> 
+    <header class="header">
+        <h2 class="logo">
+            <a href="portfolio.html">SHUN</a>
+        </h2>
+
+        <nav class="nav">
+            <a href="photo.html">PHOTO</a>
+            <a href="about.html">ABOUT</a>
+            <a href="contact.html" class="active">CONTACT</a>
+        </nav>
+    </header>
+    <h1 class="page-title">CONTACT</h1>
+ <main class="contact-page">
+<p>お問い合わせはこちらから
+    <br>
+    お返事に数日お時間をいただく場合がございます
+</p>
+ </main>
+ <section class="contact-form-area">
+        <form action="https://formspree.io/f/mqppkojk" method="POST">
+            <div class="form-group">
+                <label for="name">NAME </label>
+                <input type="text" id="name" name="name"
+                       placeholder="お名前" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-MAIL </label>
+                <input type="email" id="email" name="email"
+                       placeholder="メールアドレス" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">SUBJECT </label>
+                <input type="text" id="subject" name="subject"
+                       placeholder="お問い合わせの種類" required>
+            </div>
+            <div class="form-group">
+                <label for="message">MESSAGE </label>
+                <textarea id="message" name="message"
+                          rows="6" placeholder="詳しいお問い合わせ内容"
+                          required></textarea>
+            </div>
+            <button type="submit" class="form-submit">
+                SEND<span>→</span>
+            </button>
+        </form>
+    </section>
+</main>
+</body>
+</html>
